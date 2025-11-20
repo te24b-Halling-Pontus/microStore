@@ -1,22 +1,27 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+start();
+static void start()
+{
 Console.WriteLine("Välkomen till affären");
 Console.WriteLine("du har hundra kronor");
-Console.WriteLine("Du kan köpa en Cola [1], Fanta [2] eller Sprite [3]");
-Console.WriteLine("Priser: n\ Cola: 8kr n\ Fanta: 5kr n\ Sprite: 10kr")
-Console.WriteLine("vad vill du köpa")
+Console.WriteLine("Du kan köpa en Cola, Fanta eller Sprite");
+Console.WriteLine("Priser:\nCola: 8kr\nFanta: 5kr\nSprite: 10kr");
+Console.WriteLine("vad vill du köpa");
 int pengar = 100;
-köpaVad(pengar);
-
-
+int pris = 1;
+string vad = "1";
+köpaVad(pengar, vad, pris);
+}
 
 static int råd()
 {
-    
+    return 1;
 }
 
-static void kAntal(int pengar)
+static void kAntal(int pengar, string vad)
 {
-    Console.WriteLine("Hur många vill du köpa")
+    Console.WriteLine("Hur många vill du köpa");
     bool success = false;
     string fs = Console.ReadLine();
     success = int.TryParse(fs, out int antal);
@@ -26,36 +31,42 @@ static void kAntal(int pengar)
     }
     else if (antal < 1)
     {
-        Console.WriteLine("du kan inte köpa mindre än en av föremålet")
-        kAntal(pengar);
-    }
+        Console.WriteLine($"du kan inte köpa mindre än en {vad}");
+        kAntal(pengar, vad);
     }
     else if (success == false)
     {
-        Console.WriteLine("du kan inte köpa mindre än en av föremålet")
-        kAntal(pengar);
+        Console.WriteLine("du kan inte använda bokstäver eller över integer limiten");
+        kAntal(pengar, vad);
     }
-
-
 }
 
-static void köpaVad(int pengar)
+static string köpaVad(int pengar, string vad, int pris)
 {
-    bool success = false;
-    string fs = Console.ReadLine();
-    success = int.TryParse(fs, out int vad);
-    if (success == true)
+    vad = Console.ReadLine();
+    if (vad == "Cola")
     {
-        if (vad > 0 || 3 > vad)
-        {
-            kAntal(pengar);
-        }
-        else
-        {
-            Console.WriteLine("Du kan bara köpa Cola [1], Fanta [2] eller Sprite [3]")
-            köpaVad(pengar);
-        }
+        return vad;
+        pris = 8;
     }
+    else if (vad == "Fanta")
+    {
+        return vad;
+        pris = 5;
+    }
+    else if (vad == "Sprite")
+    {
+        return vad;
+        pris = 10;
+    }
+    else
+    {
+        Console.WriteLine("Du kan bara köpa Cola, Fanta eller Sprite");
+        köpaVad(pengar, vad, pris);
+        return "1";
+
+    }
+    return "1";
 }
 
 Console.ReadLine();
